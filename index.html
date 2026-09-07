@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="am">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#05070D">
+  <title>🇪🇹 Birr Spin</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="//libtl.com/sdk.js" data-zone="11746054" data-sdk="show_11746054"></script>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="loading" class="loading"><b>🇪🇹</b><strong>BIRR SPIN</strong><span>Loading...</span></div>
+  <main id="app" hidden>
+    <header><div><b>🇪🇹 BIRR SPIN</b><small>Premium • Fast • Simple</small></div><button onclick="page('settings')">⚙️</button></header>
+
+    <section id="home" class="page">
+      <div class="balance"><small>የአሁኑ ባላንስ / YOUR BALANCE</small><strong id="balance">0.00</strong><em>Birr</em></div>
+      <div class="card progress"><div class="row"><b>Withdrawal Progress</b><span id="progText">0 / 100 Birr</span></div><div class="bar"><i id="prog"></i></div><small id="left">100 Birr left to withdraw</small></div>
+      <div class="card wheelbox"><div class="pointer">▼</div><div id="wheel" class="wheel"><div class="wheel-label">🎡<br><b>SPIN</b></div></div><button id="spinBtn" class="primary big" onclick="spin()">🎡 SPIN NOW</button><div class="spins">🎡 AVAILABLE SPINS <b id="spins">0</b></div></div>
+      <div class="grid2">
+        <button class="card navcard" onclick="page('earn')">🎬<b>Earn Spins</b><small id="adsSmall">0 / 50 ads</small></button>
+        <button class="card navcard" onclick="page('refer')">👥<b>Invite & Earn</b><small id="refSmall">0 referrals</small></button>
+        <button class="card navcard" onclick="page('tasks')">📋<b>Tasks</b><small>+1 spin each</small></button>
+        <button class="card navcard" onclick="page('wallet')">💰<b>Wallet</b><small>Withdraw at 100 Birr</small></button>
+      </div>
+    </section>
+
+    <section id="earn" class="page" hidden>
+      <h2>🎬 EARN SPINS</h2>
+      <div class="card"><div class="row"><b>WATCH ADS</b><span id="ads">0 / 50</span></div><div class="bar"><i id="adsBar"></i></div><p id="adMsg">5 valid ads = +1 spin</p><button id="adBtn" class="primary" onclick="watchAd()">▶ WATCH AD</button></div>
+      <div class="card"><div class="row"><b>Spin progress</b><span id="adToSpin">0 / 5</span></div><div class="bar"><i id="spinBar"></i></div><small>Watch 5 completed ads to receive 1 spin.</small></div>
+      <div class="card"><div class="row"><b>🔥 DAILY REWARD</b><span id="day">DAY 1</span></div><h2 id="dailyReward">+1 SPIN</h2><div id="streak">🔥 0 DAY STREAK</div><button id="dailyBtn" class="primary" onclick="claimDaily()">CLAIM REWARD</button></div>
+      <div class="card"><h3>🎯 TODAY'S MISSIONS</h3><div id="missions"></div></div>
+    </section>
+
+    <section id="refer" class="page" hidden>
+      <h2>👥 INVITE & EARN</h2>
+      <div class="card center"><h2>1 REFERRAL = 1 SPIN</h2><p>Invite valid users who start the bot, open the Mini App and complete registration/activity.</p><div class="refbox"><span id="refLink">Loading...</span><button onclick="copyRef()">COPY</button></div><button class="primary" onclick="shareRef()">📤 SHARE WITH FRIENDS</button></div>
+      <div class="grid3"><div class="card stat"><b id="refs">0</b><small>Referrals</small></div><div class="card stat"><b id="refSpins">0</b><small>Spins</small></div><div class="card stat"><b id="rank">—</b><small>Rank</small></div></div>
+      <div class="card"><h3>🏆 Referral Milestones</h3><p>5 • 10 • 25 • 50 • 100 referrals</p></div>
+    </section>
+
+    <section id="tasks" class="page" hidden><h2>📋 TASKS</h2><div id="tasksList"></div></section>
+
+    <section id="wallet" class="page" hidden>
+      <h2>💰 WALLET</h2><div class="balance"><small>BALANCE</small><strong id="wBalance">0.00</strong><em>Birr</em></div>
+      <div class="card"><div class="row"><b>Withdrawal</b><span id="wState">🔒 LOCKED</span></div><p id="wNeed">You need 100 Birr.</p><button id="withdrawBtn" class="primary" onclick="withdraw()" disabled>WITHDRAW</button></div>
+      <div class="card"><h3>📜 TRANSACTIONS</h3><div id="history">No transactions yet.</div></div>
+    </section>
+
+    <section id="settings" class="page" hidden><h2>⚙️ SETTINGS</h2><div class="card"><div class="row"><b>🔔 Notifications</b><span>On</span></div></div><div class="card"><h3>🆘 HELP & SUPPORT</h3><p>Ad • Task • Referral • Withdrawal • Other</p></div><div class="card"><h3>❓ FAQ</h3><details><summary>How do I get spins?</summary><p>Watch valid ads, refer valid users, complete tasks and claim daily rewards.</p></details><details><summary>When can I withdraw?</summary><p>When your balance reaches 100 Birr.</p></details></div></section>
+
+    <nav><button onclick="page('home')">🏠<span>Home</span></button><button onclick="page('home')">🎡<span>Spin</span></button><button onclick="page('earn')">🎬<span>Earn</span></button><button onclick="page('refer')">👥<span>Refer</span></button><button onclick="page('wallet')">💰<span>Wallet</span></button></nav>
+  </main>
+  <div id="modal" class="modal" hidden><div class="modalbox"><div id="modalIcon">🎉</div><h2 id="modalTitle">YOU WON!</h2><strong id="modalReward">+0.50 Birr</strong><button class="primary" onclick="closeModal()">CONTINUE</button></div></div>
+  <div id="toast"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
