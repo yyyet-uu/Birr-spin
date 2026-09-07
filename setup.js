@@ -1,0 +1,1 @@
+const BOT=process.env.BOT_TOKEN,WEB=process.env.WEBAPP_URL;module.exports=async(req,res)=>{if(req.query.key!==process.env.SETUP_KEY)return res.status(403).json({error:"Forbidden"});const r=await fetch(`https://api.telegram.org/bot${BOT}/setWebhook`,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({url:WEB+"/api/bot"})});res.json(await r.json())}
